@@ -26,6 +26,6 @@
                 </muxc:MenuBarItem>
             </muxc:MenuBar>
         </StackPanel>
-        <MediaPlayerElement VerticalAlignment="Bottom" x:Name="mediaplayerElement" AreTransportControlsEnabled="True"></MediaPlayerElement>
+        <MediaPlayerElement  Margin="100" VerticalAlignment="Bottom" x:Name="mediaplayerElement" AreTransportControlsEnabled="True"></MediaPlayerElement>
     </StackPanel>
 </Page>
