@@ -55,15 +55,16 @@ namespace AudioTracksDemo
                 playbackItem = new MediaPlaybackItem(source);
 
                 playbackItem.AudioTracks.SelectedIndexChanged += AudioTracks_SelectedIndexChanged;
-               
                 mediaplayerElement.Source = playbackItem;
+           
             }
         }
 
         private void AudioTracks_SelectedIndexChanged(ISingleSelectMediaTrackList sender, object args)
         {
+          
 
-            Debug.WriteLine("AudioTracks_SelectedIndexChanged");
+                Debug.WriteLine("AudioTracks_SelectedIndexChanged");
             var audioTrackIndex = sender.SelectedIndex;
             Debug.WriteLine($"index : {audioTrackIndex} ");
             if (playbackItem != null && playbackItem.AudioTracks != null)
@@ -74,27 +75,8 @@ namespace AudioTracksDemo
             
         }
 
-        private async void Pick_File(object sender, RoutedEventArgs e)
-        {
-            await PickSingleFile();
-        }
+        
 
-        async private System.Threading.Tasks.Task PickSingleFile()
-        {
-            var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
-
-            openPicker.FileTypeFilter.Add(".mp3");
-            
-            var file = await openPicker.PickSingleFileAsync();
-            Debug.WriteLine(file);
-
-            if (file != null)
-            {
-                IRandomAccessStream strSource = await file.OpenReadAsync();
-
-                 
-
-            }
-        }
+       
     }
 }
