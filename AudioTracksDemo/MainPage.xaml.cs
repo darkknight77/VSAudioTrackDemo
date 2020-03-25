@@ -71,12 +71,11 @@ namespace AudioTracksDemo
 
                 for (int i = 0; i < audioTrackCount; i++)
                 {
-                    Debug.WriteLine($"{playbackItem.AudioTracks[i].SupportInfo.DecoderStatus} {playbackItem.AudioTracks[i].Name}");
                     ToggleMenuFlyoutItem item = new ToggleMenuFlyoutItem();
-                    item.Text = $"Audio Track {i+1} ({playbackItem.AudioTracks[i].Language}) ";
+                                      item.Text = $"Audio {i + 1}";
                     item.Tag = i;
                     item.Click += Item_Click;
-                    //if (i == 0) item.IsChecked = true;
+                    if (i == 0) item.IsChecked = true;
                     audioTrack.Items.Add(item);
                    
                 }
@@ -93,14 +92,6 @@ namespace AudioTracksDemo
         {
             Debug.WriteLine($"Item Click Event");
             int index = (int)(sender as ToggleMenuFlyoutItem).Tag;
-            
-            for (int i = 0; i < audioTrack.Items.Count; i++)
-            {
-                ((ToggleMenuFlyoutItem)(audioTrack.Items[i])).IsChecked = false;
-                Debug.WriteLine($"{i} is set to false");
-                // (((ToggleMenuFlyoutItem)menuBarItem.Items[i])).IsChecked = false; 
-            }
-            
             (sender as ToggleMenuFlyoutItem).IsChecked = true;
             
             changeAudioTrack(index);
