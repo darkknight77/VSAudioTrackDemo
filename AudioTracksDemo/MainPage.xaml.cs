@@ -34,10 +34,10 @@ namespace AudioTracksDemo
             this.InitializeComponent();
         }
 
-         async private void Open_File(object sender, RoutedEventArgs e)
+        async private void Open_File(object sender, RoutedEventArgs e)
         {
             try { await PickSingleVideoFile(); } catch (Exception ex) { Debug.WriteLine(ex.ToString()); }
-            
+
         }
         async private System.Threading.Tasks.Task PickSingleVideoFile()
         {
@@ -59,7 +59,7 @@ namespace AudioTracksDemo
 
                 playbackItem.AudioTracks.SelectedIndexChanged += AudioTracks_SelectedIndexChanged;
                 mediaplayerElement.Source = playbackItem;
-           
+
             }
         }
 
@@ -71,13 +71,14 @@ namespace AudioTracksDemo
 
                 for (int i = 0; i < audioTrackCount; i++)
                 {
+                    Debug.WriteLine($"{playbackItem.AudioTracks[i].SupportInfo.DecoderStatus} {playbackItem.AudioTracks[i].Name}");
                     ToggleMenuFlyoutItem item = new ToggleMenuFlyoutItem();
-                                      item.Text = $"Audio {i + 1}";
+                    item.Text = $"Audio Track {i + 1} ({playbackItem.AudioTracks[i].Language}) ";
                     item.Tag = i;
                     item.Click += Item_Click;
-                    if (i == 0) item.IsChecked = true;
+                    //if (i == 0) item.IsChecked = true;
                     audioTrack.Items.Add(item);
-                   
+
                 }
                 Debug.WriteLine($"created AudioTrackMenu ");
             }
@@ -92,8 +93,16 @@ namespace AudioTracksDemo
         {
             Debug.WriteLine($"Item Click Event");
             int index = (int)(sender as ToggleMenuFlyoutItem).Tag;
+
+            for (int i = 0; i < audioTrack.Items.Count; i++)
+            {
+                ((ToggleMenuFlyoutItem)(audioTrack.Items[i])).IsChecked = false;
+                Debug.WriteLine($"{i} is set to false");
+                // (((ToggleMenuFlyoutItem)menuBarItem.Items[i])).IsChecked = false; 
+            }
+
             (sender as ToggleMenuFlyoutItem).IsChecked = true;
-            
+
             changeAudioTrack(index);
         }
         private void changeAudioTrack(int index)
@@ -107,11 +116,11 @@ namespace AudioTracksDemo
 
             }
         }
-      async private void AudioTracks_SelectedIndexChanged(ISingleSelectMediaTrackList sender, object args)
+        async private void AudioTracks_SelectedIndexChanged(ISingleSelectMediaTrackList sender, object args)
         {
-          
 
-                Debug.WriteLine("AudioTracks_SelectedIndexChanged");
+
+            Debug.WriteLine("AudioTracks_SelectedIndexChanged");
             var audioTrackIndex = sender.SelectedIndex;
             Debug.WriteLine($"index : {audioTrackIndex} ");
             audioTrackCount = playbackItem.AudioTracks.Count;
@@ -121,14 +130,14 @@ namespace AudioTracksDemo
             {
                 //Make sure to call this method on the UI thread:
                 createAudioTrackMenu();
-                
-                
+
+
             });
-           
-            
+
+
         }
 
-       
-       
+
+
     }
 }
