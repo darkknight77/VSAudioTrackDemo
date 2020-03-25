@@ -68,6 +68,7 @@ namespace AudioTracksDemo
             Debug.WriteLine($"creating AudioTrackMenu ");
             if (audioTrackCount > 1)
             {
+                int index = playbackItem.AudioTracks.SelectedIndex;
 
                 for (int i = 0; i < audioTrackCount; i++)
                 {
@@ -76,7 +77,7 @@ namespace AudioTracksDemo
                     item.Text = $"Audio Track {i + 1} ({playbackItem.AudioTracks[i].Language}) ";
                     item.Tag = i;
                     item.Click += Item_Click;
-                    //if (i == 0) item.IsChecked = true;
+                    if (i == index) item.IsChecked = true;
                     audioTrack.Items.Add(item);
 
                 }
@@ -126,6 +127,7 @@ namespace AudioTracksDemo
             audioTrackCount = playbackItem.AudioTracks.Count;
             Debug.WriteLine($"AudioTrackCount : {audioTrackCount} ");
             Debug.WriteLine($"label {audioTrackIndex} : { playbackItem.AudioTracks[audioTrackIndex].Label}");
+           
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 //Make sure to call this method on the UI thread:
